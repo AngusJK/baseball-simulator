@@ -54,10 +54,9 @@ const pitch = function() {
   while (inning[0] <= 3) {
     if (inning[1] === 0) {
       teamAtBat = visitingTeam;
-    } else if (inning[1] == 1) {
+    } else if (inning[1] === 1) {
       teamAtBat = homeTeam;
     };
-    
     let play = "";
     let result = Math.floor(Math.random() * 101);
     if (result >= 0 && result <= 67) {
@@ -79,17 +78,14 @@ const pitch = function() {
     };
     if (outs === 3) {
       console.log(`3 out, inning over`);
-      if (inning[1] === 0) {
-        inning[1] = 1;
-      } else if (inning[1] === 1) {
-        inning[1] = 0;
-        inning[0] += 1;
-      };
       let half = "";
       if (inning[1] === 0) {
+        inning[1] = 1;
         half = "Top";
       } else if (inning[1] === 1) {
+        inning[1] = 0;
         half = "Bottom";
+        inning[0] += 1;
       };
       outs = 0;
       onFirst = 0;
