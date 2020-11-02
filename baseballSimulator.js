@@ -14,45 +14,76 @@ let half = "";
 let onFirst = 0;
 let onSecond = 0;
 let onThird = 0;
-let totalRunners = onFirst + onSecond + onThird;
-let gameOver = false;
+let totalRunners = 0;
 // let score = `Score: ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`;
+
+const updateTotalRunners = function(nowOnBase) {
+  totalRunners = nowOnBase;
+};
 
 const advanceRunners = function(basesAchieved) {
   if (basesAchieved === 1) {
     if (onFirst === 0) {
       onFirst = 1;
+      updateTotalRunners(1);
     } else if (onFirst === 1) {
       if (onSecond === 0) {
         onSecond = 1;
+        updateTotalRunners(2);
       } else if (onSecond === 1) {
         if (onThird === 0) {
           onThird = 1;
+          updateTotalRunners(3);
         } else if (onThird === 1) {
           runs += 1;
-          
+          console.log("🔵  Run(s) scored!");
         }
       }
     }
   };
   if (basesAchieved === 2) {
-    if (onSecond === 0) {
+    if (onFirst === 0 && onSecond === 0 && onThird === 0) {
+      onSecond += 1;
+      updateTotalRunners(1);
+    };
+    if (onFirst === 1 && onSecond === 0 && onThird === 0) {
+      onFirst = 0;
       onSecond = 1;
-    } else if (onSecond === 1) {
-      if (onThird === 0) {
-        onThird = 1;
-      } else if (onThird === 1) {
-        runs += 1;
-      
-      }
-    }
+      onThird = 1;
+      updateTotalRunners(2);
+    };
+    if (onFirst === 1 && onSecond === 1 && onThird === 0) {
+      onFirst = 0;
+      onThird = 1;
+      runs += 1;
+      updateTotalRunners(2);
+      console.log("🔵  Run(s) scored!");
+    };
+    if (onFirst === 1 && onSecond === 1 && onThird === 1) {
+      onFirst = 0;
+      runs += 2;
+      console.log("🔵  Run(s) scored!");
+    };
+    if (onFirst === 0 && onSecond === 1 && onThird === 0) {
+      onThird = 1;
+    };
+    if (onFirst === 0 && onSecond === 1 && onThird === 1) {
+      runs += 1;
+      console.log("🔵  Run(s) scored!");
+    };
+    if (onFirst === 1 && onSecond === 0 && onThird === 1) {
+      onSecond = 1;
+    };
+    if (onFirst === 0 && onSecond === 0 && onThird === 0) {
+      onSecond = 1;
+    };
   };
   if (basesAchieved === 3) {
     runs += totalRunners;
+    console.log("🔵  Run(s) scored!");
     onFirst = 0;
     onSecond = 0;
     onThird = 1;
-   
   }
 };
 
@@ -99,6 +130,10 @@ const pitch = function() {
       } else if (play === "home run") {
         runs += 1;
         runs += totalRunners;
+        onFirst = 0;
+        onSecond = 0;
+        onThird = 0;
+        console.log("🔵  Run(s) scored!");
         };
       batter += 1;
       if (batter === 10) {
