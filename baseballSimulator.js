@@ -26,6 +26,7 @@ const advanceRunners = function(basesAchieved) {
           onThird = 1;
         } else if (onThird === 1) {
           runs += 1;
+          console.log(runs);
         }
       }
     }
@@ -38,6 +39,7 @@ const advanceRunners = function(basesAchieved) {
         onThird = 1;
       } else if (onThird === 1) {
         runs += 1;
+        console.log(runs);
       }
     }
   };
@@ -46,80 +48,84 @@ const advanceRunners = function(basesAchieved) {
     onFirst = 0;
     onSecond = 0;
     onThird = 1;
+    console.log(runs);
   }
 };
 
+let half = "";
 const pitch = function() {
-  console.log("⚾️  Top of inning number 1");
-  while (inning[0] <= 3) {
+  if (inning[0] > 3) {
+    gameOver = true;
+  }; 
+  if (gameOver === false) {
     if (inning[1] === 0) {
-      teamAtBat = visitingTeam;
-    } else if (inning[1] === 1) {
-      teamAtBat = homeTeam;
-    };
-    let play = "";
-    let result = Math.floor(Math.random() * 101);
-    if (result >= 0 && result <= 67) {
-      play = "out";
-    } else if (result >= 68 && result <= 76) {
-      play = "walk";
-    } else if (result >= 77 && result <= 90) {
-      play = "single";
-    } else if (result >= 91 && result <= 95) {
-      play = "double";
-    } else if (result === 96) {
-      play = "triple";
-    } else {
-      play = "home run";
-    };
-    console.log(`Result: ${play}`);
-    if (play === "out") {
-      outs += 1;
-    };
-    if (outs === 3) {
-      console.log(`3 out, inning over`);
-      let half = "";
-      if (inning[1] === 0) {
-        inning[1] = 1;
         half = "Top";
+        teamAtBat = visitingTeam;
       } else if (inning[1] === 1) {
-        inning[1] = 0;
         half = "Bottom";
-        inning[0] += 1;
+        teamAtBat = homeTeam;
       };
-      outs = 0;
-      onFirst = 0;
-      onSecond = 0;
-      onThird = 0;
-      if (teamAtBat === visitingTeam) {
-        visitingTeamRuns += runs;
-      } else if (teamAtBat === homeTeam) {
-        homeTeamRuns += runs;
+      console.log(`⚾️  ${half} of inning number ${inning[0]}`);
+
+      while (outs < 3) {
+        let play = "";
+        let result = Math.floor(Math.random() * 101);
+        if (result >= 0 && result <= 67) {
+          play = "out";
+        } else if (result >= 68 && result <= 76) {
+          play = "walk";
+        } else if (result >= 77 && result <= 90) {
+          play = "single";
+        } else if (result >= 91 && result <= 95) {
+          play = "double";
+        } else if (result === 96) {
+          play = "triple";
+        } else {
+          play = "home run";
+        };
+        console.log(`Result: ${play}`);
+        if (play === "out") {
+          outs += 1;
+        };
+        if (outs === 3) {
+          console.log(`3 out, inning over`);
+          if (inning[1] === 0) {
+            inning[1] = 1;
+          } else if (inning[1] === 1) {
+            inning[1] = 0;
+            inning[0] += 1;
+          };
+          outs = 0;
+          onFirst = 0;
+          onSecond = 0;
+          onThird = 0;
+          if (teamAtBat === visitingTeam) {
+            visitingTeamRuns += runs;
+          } else if (teamAtBat === homeTeam) {
+            homeTeamRuns += runs;
+          };
+          if (inning[0] <= 3) {
+            console.log(score);
+          };
+          runs = 0;
+          
+        };
+        if (play === "walk" || play === "single") {
+          advanceRunners(1);
+        } else if (play === "double") {
+          advanceRunners(2);
+        } else if (play === "triple") {
+          advanceRunners(3);
+        } else if (play === "home run") {
+          runs += 1;
+          runs += totalRunners;
+        };
       };
-      runs = 0;
-      if (inning[0] <= 3) {
-        console.log(score);
-        console.log(`⚾️  ${half} of inning number ${inning[0]}`)
-      };
-    };
-    if (inning[0] > 3) {
-      gameOver = true;
-    };
-    if (gameOver === true) {
-      console.log("GAME OVER");
-    };
-    if (play === "walk" || play === "single") {
-      advanceRunners(1);
-    } else if (play === "double") {
-      advanceRunners(2);
-    } else if (play === "triple") {
-      advanceRunners(3);
-    } else if (play === "home run") {
-      runs += 1;
-      runs += totalRunners;
-    };
+      pitch();
+  if (gameOver === true) {
+    console.log("GAME OVER");
+    console.log(`Final score: ${visitingTeam}: ${visitingTeamRuns}, ${homeTeam}: ${homeTeamRuns}`);
   };
-  console.log(`Final score: ${visitingTeam}: ${visitingTeamRuns}, ${homeTeam}: ${homeTeamRuns}`);
 }; 
 
 pitch();
