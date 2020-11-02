@@ -5,6 +5,9 @@ let homeTeamRuns = 0;
 let visitingTeamRuns = 0;
 let runs = 0;
 let teamAtBat = "";
+let batter = 0;
+let homeBatter = 1;
+let visitorBatter = 1;
 let outs = 0;
 let inning = [1, 0];
 let half = "";
@@ -54,16 +57,18 @@ const advanceRunners = function(basesAchieved) {
 };
 
 const pitch = function() {
-  if (inning[0] > 3) {
+  if (inning[0] > 3 && visitingTeamRuns !== homeTeamRuns) {
     console.log("GAME OVER");
     console.log(`Final score: ${visitingTeam}: ${visitingTeamRuns}, ${homeTeam}: ${homeTeamRuns}`);
-  } else if (inning[0] <= 3) {
+  } else {
     if (inning[1] === 0) {
         half = "Top";
         teamAtBat = visitingTeam;
+        batter = visitorBatter;
       } else if (inning[1] === 1) {
         half = "Bottom";
         teamAtBat = homeTeam;
+        batter = homeBatter;
       };
     console.log(`⚾️  ${half} of inning number ${inning[0]}`);
     while (outs < 3) {
@@ -82,7 +87,7 @@ const pitch = function() {
       } else {
         play = "home run";
       };
-      console.log(`Result: ${play}`);
+      console.log(`Batter: ${batter} ${play}`);
       if (play === "out") {
         outs += 1;
       } else if (play === "walk" || play === "single") {
@@ -95,8 +100,27 @@ const pitch = function() {
         runs += 1;
         runs += totalRunners;
         };
+      batter += 1;
+      if (batter === 10) {
+        batter = 1;
+      };
     };
     console.log(`3 out, inning over`);
+    if (inning[1] === 0) {
+      visitorBatter = batter;
+      /*
+      if (visitorBatter > 9) {
+        visitorBatter = visitorBatter - 9;
+      }
+      */
+    } else if (inning[1] === 1) {
+      homeBatter = batter;
+      /*
+      if (homeBatter > 9) {
+        homeBatter = homeBatter - 9;
+      }
+      */
+    };
     if (inning[1] === 0) {
       inning[1] = 1;
     } else if (inning[1] === 1) {
@@ -107,12 +131,14 @@ const pitch = function() {
     onFirst = 0;
     onSecond = 0;
     onThird = 0;
+    
     if (teamAtBat === visitingTeam) {
       visitingTeamRuns += runs;
     } else if (teamAtBat === homeTeam) {
       homeTeamRuns += runs;
     };
     console.log(`Score: ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
+    batter = 0;
     runs = 0;
     pitch();
   };
