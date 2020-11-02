@@ -45,46 +45,45 @@ const advanceRunners = function(basesAchieved) {
     if (onFirst === 0 && onSecond === 0 && onThird === 0) {
       onSecond += 1;
       updateTotalRunners(1);
-    };
-    if (onFirst === 1 && onSecond === 0 && onThird === 0) {
+    } else if (onFirst === 1 && onSecond === 0 && onThird === 0) {
       onFirst = 0;
       onSecond = 1;
       onThird = 1;
       updateTotalRunners(2);
-    };
-    if (onFirst === 1 && onSecond === 1 && onThird === 0) {
+    } else if (onFirst === 1 && onSecond === 1 && onThird === 0) {
       onFirst = 0;
       onThird = 1;
       runs += 1;
-      updateTotalRunners(2);
       console.log("🔵  Run(s) scored!");
-    };
-    if (onFirst === 1 && onSecond === 1 && onThird === 1) {
+    } else if (onFirst === 1 && onSecond === 1 && onThird === 1) {
       onFirst = 0;
       runs += 2;
+      updateTotalRunners(2);
       console.log("🔵  Run(s) scored!");
-    };
-    if (onFirst === 0 && onSecond === 1 && onThird === 0) {
+    } else if (onFirst === 0 && onSecond === 1 && onThird === 0) {
       onThird = 1;
-    };
-    if (onFirst === 0 && onSecond === 1 && onThird === 1) {
+      updateTotalRunners(2);
+    } else if (onFirst === 0 && onSecond === 1 && onThird === 1) {
       runs += 1;
       console.log("🔵  Run(s) scored!");
-    };
-    if (onFirst === 1 && onSecond === 0 && onThird === 1) {
+    } else if (onFirst === 1 && onSecond === 0 && onThird === 1) {
       onSecond = 1;
-    };
-    if (onFirst === 0 && onSecond === 0 && onThird === 0) {
+      updateTotalRunners(3);
+    } else if (onFirst === 0 && onSecond === 0 && onThird === 1) {
       onSecond = 1;
+      updateTotalRunners(2);
     };
   };
   if (basesAchieved === 3) {
-    runs += totalRunners;
-    console.log("🔵  Run(s) scored!");
+    if (totalRunners > 0) {
+      runs += totalRunners;
+      console.log("🔵  Run(s) scored!");
+    };
     onFirst = 0;
     onSecond = 0;
     onThird = 1;
-  }
+    updateTotalRunners(1);
+  };
 };
 
 const pitch = function() {
@@ -143,18 +142,8 @@ const pitch = function() {
     console.log(`3 out, inning over`);
     if (inning[1] === 0) {
       visitorBatter = batter;
-      /*
-      if (visitorBatter > 9) {
-        visitorBatter = visitorBatter - 9;
-      }
-      */
     } else if (inning[1] === 1) {
       homeBatter = batter;
-      /*
-      if (homeBatter > 9) {
-        homeBatter = homeBatter - 9;
-      }
-      */
     };
     if (inning[1] === 0) {
       inning[1] = 1;
@@ -166,7 +155,6 @@ const pitch = function() {
     onFirst = 0;
     onSecond = 0;
     onThird = 0;
-    
     if (teamAtBat === visitingTeam) {
       visitingTeamRuns += runs;
     } else if (teamAtBat === homeTeam) {
@@ -175,19 +163,12 @@ const pitch = function() {
     console.log(`Score: ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
     batter = 0;
     runs = 0;
+    updateTotalRunners(0);
     pitch();
   };
 }; 
 
 pitch();
-/*
-console.log(`Runs: ${runs}`);
-console.log(`Inning: ${inning}`);
-console.log(`Runner on first: ${onFirst}`);
-console.log(`Runner on second: ${onSecond}`);
-console.log(`Runner on third: ${onThird}`);
-*/
-
 
 // node baseballSimulator.js
 
