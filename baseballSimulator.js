@@ -16,6 +16,14 @@ let onSecond = 0;
 let onThird = 0;
 let totalRunners = 0;
 // let score = `Score: ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`;
+const dodgers = {
+  betts: { battingOrderPosition: 1,
+           fieldingPosition: "Center Field",
+           uniformNumber: 50 },
+  seager: { battingOrderPosition: 2,
+            fieldingPosition: "Short Stop",
+            uniformNumber: 5 }         
+};
 
 const updateTotalRunners = function(nowOnBase) {
   totalRunners = nowOnBase;
@@ -35,11 +43,15 @@ const advanceRunners = function(basesAchieved) {
           onThird = 1;
           updateTotalRunners(3);
         } else if (onThird === 1) {
-          runs += 1;
-          console.log("🔵  Run(s) scored!");
-        }
-      }
-    }
+          if (teamAtBat === visitingTeam) {
+            visitingTeamRuns += 1; 
+            } else if (teamAtBat === homeTeam) {
+              homeTeamRuns += 1;
+            };
+          console.log(`🔵  ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
+          };
+        };
+      };
   };
   if (basesAchieved === 2) {
     if (onFirst === 0 && onSecond === 0 && onThird === 0) {
@@ -53,19 +65,31 @@ const advanceRunners = function(basesAchieved) {
     } else if (onFirst === 1 && onSecond === 1 && onThird === 0) {
       onFirst = 0;
       onThird = 1;
-      runs += 1;
-      console.log("🔵  Run(s) scored!");
+      if (teamAtBat === visitingTeam) {
+        visitingTeamRuns += 1; 
+        } else if (teamAtBat === homeTeam) {
+          homeTeamRuns += 1;
+        };
+      console.log(`🔵  ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
     } else if (onFirst === 1 && onSecond === 1 && onThird === 1) {
       onFirst = 0;
-      runs += 2;
       updateTotalRunners(2);
-      console.log("🔵  Run(s) scored!");
+      if (teamAtBat === visitingTeam) {
+        visitingTeamRuns += 2; 
+        } else if (teamAtBat === homeTeam) {
+          homeTeamRuns += 2;
+        };
+      console.log(`🔵  ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
     } else if (onFirst === 0 && onSecond === 1 && onThird === 0) {
       onThird = 1;
       updateTotalRunners(2);
     } else if (onFirst === 0 && onSecond === 1 && onThird === 1) {
-      runs += 1;
-      console.log("🔵  Run(s) scored!");
+      if (teamAtBat === visitingTeam) {
+        visitingTeamRuns += 1; 
+        } else if (teamAtBat === homeTeam) {
+          homeTeamRuns += 1;
+        };
+      console.log(`🔵  ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
     } else if (onFirst === 1 && onSecond === 0 && onThird === 1) {
       onSecond = 1;
       updateTotalRunners(3);
@@ -76,13 +100,29 @@ const advanceRunners = function(basesAchieved) {
   };
   if (basesAchieved === 3) {
     if (totalRunners > 0) {
-      runs += totalRunners;
-      console.log("🔵  Run(s) scored!");
+      if (teamAtBat === visitingTeam) {
+        visitingTeamRuns += totalRunners;
+      } else if (teamAtBat === homeTeam) {
+        homeTeamRuns += totalRunners;
+      };
+      console.log(`🔵  ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
     };
     onFirst = 0;
     onSecond = 0;
     onThird = 1;
     updateTotalRunners(1);
+  };
+  if (basesAchieved === 4) {
+    if (teamAtBat === visitingTeam) {
+      visitingTeamRuns += (totalRunners + 1);
+    } else if (teamAtBat === homeTeam) {
+      homeTeamRuns += (totalRunners + 1);
+    };
+  console.log(`🔵  ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
+  onFirst = 0;
+  onSecond = 0;
+  onThird = 0;
+  updateTotalRunners(0);
   };
 };
 
@@ -127,13 +167,8 @@ const pitch = function() {
       } else if (play === "triple") {
         advanceRunners(3);
       } else if (play === "home run") {
-        runs += 1;
-        runs += totalRunners;
-        onFirst = 0;
-        onSecond = 0;
-        onThird = 0;
-        console.log("🔵  Run(s) scored!");
-        };
+        advanceRunners(4);
+      };
       batter += 1;
       if (batter === 10) {
         batter = 1;
@@ -155,14 +190,16 @@ const pitch = function() {
     onFirst = 0;
     onSecond = 0;
     onThird = 0;
+    /*
     if (teamAtBat === visitingTeam) {
       visitingTeamRuns += runs;
     } else if (teamAtBat === homeTeam) {
       homeTeamRuns += runs;
     };
+    */
     console.log(`Score: ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
     batter = 0;
-    runs = 0;
+    //runs = 0;
     updateTotalRunners(0);
     pitch();
   };
