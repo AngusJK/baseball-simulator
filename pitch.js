@@ -1,5 +1,25 @@
+var inning = require('./baseballSimulator');
+const visitingTeam = require('./baseballSimulator');
+const homeTeam = require('./baseballSimulator');
+var visitingTeamRuns = require('./baseballSimulator');
+var homeTeamRuns = require('./baseballSimulator');
+var half = require('./baseballSimulator');
+var teamAtBat = require('./baseballSimulator');
+var batter = require('./baseballSimulator');
+var visitorBatter = require('./baseballSimulator');
+var homeBatter = require('./baseballSimulator');
+var outs  = require('./baseballSimulator');
+//var onFirst = require('./baseballSimulator');
+//var onSecond = require('./baseballSimulator');
+//var onThird = require('./baseballSimulator');
+var updateTotalRunners = require('./updateTotalRunners');
+var advanceRunners = require('./advanceRunners');
+
 const pitch = function() {
   //console.log(`${visitingTeamRuns}, ${homeTeamRuns}`);
+  console.log(inning);
+  console.log(homeTeam);
+  console.log(visitingTeam);
   if ((inning[0] > 3 && inning[1] === 0 && visitingTeamRuns !== homeTeamRuns) || (inning[0] >= 3 && inning[1] === 1 && homeTeamRuns > visitingTeamRuns)) {
     console.log(`GAME OVER Final score: ${visitingTeam}: ${visitingTeamRuns}, ${homeTeam}: ${homeTeamRuns}`);
   } else {
@@ -14,8 +34,8 @@ const pitch = function() {
       };
     console.log(`⚾️  ${half} of inning number ${inning[0]}`);
     while (outs < 3) {
-      let play = "";
-      let result = Math.floor(Math.random() * 101);
+      var play = "";
+      var result = Math.floor(Math.random() * 101);
       if (result >= 0 && result <= 67) {
         play = "out";
       } else if (result >= 68 && result <= 76) {
