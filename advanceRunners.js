@@ -1,13 +1,13 @@
-const onFirst = require('./baseballSimulator');
-const onSecond = require('./baseballSimulator');
-const onThird = require('./baseballSimulator');
-const teamAtBat = require('./baseballSimulator');
 const visitingTeam = require('./baseballSimulator');
-const visitingTeamRuns = require('./baseballSimulator');
 const homeTeam = require('./baseballSimulator');
-const homeTeamRuns = require('./baseballSimulator');
-const totalRunners = require('./baseballSimulator');
-const inning = require('./baseballSimulator');
+var onFirst = require('./baseballSimulator');
+var onSecond = require('./baseballSimulator');
+var onThird = require('./baseballSimulator');
+var teamAtBat = require('./baseballSimulator');
+var visitingTeamRuns = require('./baseballSimulator');
+var homeTeamRuns = require('./baseballSimulator');
+var totalRunners = require('./baseballSimulator');
+var inning = require('./baseballSimulator');
 
 const advanceRunners = function(basesAchieved) {
   if (basesAchieved === 1) {
