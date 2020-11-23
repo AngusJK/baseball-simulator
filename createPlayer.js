@@ -19,3 +19,19 @@ mookieBetts.logDetails();
 mikeTrout.logDetails();
 joeyVotto.logDetails();
 
+class Player {
+  constructor() {
+    this.teamsPlayedFor = [];
+  }
+  addTeams(team) {
+    this.teamsPlayedFor.push(team);
+  }
+}
+
+let joshDonaldson = new Player();
+
+joshDonaldson.addTeams("Athletics");
+joshDonaldson.addTeams("Blue Jays");
+joshDonaldson.addTeams("Braves");
+
+console.log(joshDonaldson);
