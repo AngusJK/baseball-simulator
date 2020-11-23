@@ -20,7 +20,6 @@ mikeTrout.logDetails();
 joeyVotto.logDetails();
 
 class Player {
-  
   constructor(name) {
     this.name = name;
     this.teamsPlayedFor = [];
@@ -30,14 +29,32 @@ class Player {
   }
 }
 
-let joshDonaldson = new Player("Josh Donaldson");
-let giancarloStanton = new Player("Giancarlo Stanton");
+class Batter extends Player {
+  bats(handedness) {
+    this.bats = handedness;
+  }
+}
+
+class Pitcher extends Player {
+  throws(handedness) {
+    this.throws = handedness;
+  }
+}
+
+let joshDonaldson = new Batter("Josh Donaldson");
+let giancarloStanton = new Batter("Giancarlo Stanton");
+let claytonKershaw = new Pitcher("Clayton Kershaw");
 
 joshDonaldson.addTeams("Athletics");
 joshDonaldson.addTeams("Blue Jays");
 joshDonaldson.addTeams("Braves");
+joshDonaldson.bats("Right");
 giancarloStanton.addTeams("Marlins");
 giancarloStanton.addTeams("Yankees");
+giancarloStanton.bats("Right");
+claytonKershaw.addTeams("Dodgers");
+claytonKershaw.throws("Left");
 
 console.log(joshDonaldson);
 console.log(giancarloStanton);
+console.log(claytonKershaw);
