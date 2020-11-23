@@ -20,7 +20,9 @@ mikeTrout.logDetails();
 joeyVotto.logDetails();
 
 class Player {
-  constructor() {
+  
+  constructor(name) {
+    this.name = name;
     this.teamsPlayedFor = [];
   }
   addTeams(team) {
@@ -28,10 +30,14 @@ class Player {
   }
 }
 
-let joshDonaldson = new Player();
+let joshDonaldson = new Player("Josh Donaldson");
+let giancarloStanton = new Player("Giancarlo Stanton");
 
 joshDonaldson.addTeams("Athletics");
 joshDonaldson.addTeams("Blue Jays");
 joshDonaldson.addTeams("Braves");
+giancarloStanton.addTeams("Marlins");
+giancarloStanton.addTeams("Yankees");
 
 console.log(joshDonaldson);
+console.log(giancarloStanton);
