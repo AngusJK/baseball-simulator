@@ -1,3 +1,4 @@
+/*
 const createPlayer = function(name, team, position, number) {
   const player = {
     name: name,
@@ -18,14 +19,18 @@ const joeyVotto = createPlayer("Joey Votto", "Reds", 3, 19);
 mookieBetts.logDetails();
 mikeTrout.logDetails();
 joeyVotto.logDetails();
+*/ 
 
 class Player {
-  constructor(name) {
+  constructor(name, currentTeam) {
     this.name = name;
-    this.teamsPlayedFor = [];
+    this.teamsPlayedFor = [currentTeam];
   }
   addTeams(team) {
     this.teamsPlayedFor.push(team);
+  }
+  bio() {
+    return `${this.name} currently plays for the ${this.teamsPlayedFor[0]}.`;
   }
 }
 
@@ -33,28 +38,31 @@ class Batter extends Player {
   bats(handedness) {
     this.bats = handedness;
   }
+  bio() {
+    return `${this.bats}-handed batter. ${super.bio()}`;
+  }
 }
 
 class Pitcher extends Player {
   throws(handedness) {
     this.throws = handedness;
   }
+  bio() {
+    return `${this.throws}-handed pitcher. ${super.bio()}`;
+  }
 }
 
-let joshDonaldson = new Batter("Josh Donaldson");
-let giancarloStanton = new Batter("Giancarlo Stanton");
-let claytonKershaw = new Pitcher("Clayton Kershaw");
+let joshDonaldson = new Batter("Josh Donaldson", "Braves");
+let giancarloStanton = new Batter("Giancarlo Stanton", "Yankees");
+let claytonKershaw = new Pitcher("Clayton Kershaw", "Dodgers");
 
 joshDonaldson.addTeams("Athletics");
 joshDonaldson.addTeams("Blue Jays");
-joshDonaldson.addTeams("Braves");
+joshDonaldson.addTeams("Indians");
 joshDonaldson.bats("Right");
 giancarloStanton.addTeams("Marlins");
-giancarloStanton.addTeams("Yankees");
 giancarloStanton.bats("Right");
-claytonKershaw.addTeams("Dodgers");
 claytonKershaw.throws("Left");
 
-console.log(joshDonaldson);
-console.log(giancarloStanton);
-console.log(claytonKershaw);
+console.log(joshDonaldson.bio());
+console.log(claytonKershaw.bio());
