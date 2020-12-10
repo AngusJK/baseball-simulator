@@ -1,4 +1,5 @@
 const pitch = require('./pitch');
+const updateCount = require('./updateCount');
 /*
 const advanceRunners = require('./advanceRunners');
 const updateTotalRunners = require('./updateTotalRunners');
@@ -12,13 +13,24 @@ const rl = readline.createInterface({
 rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.\n', (answer1) => {
   if (answer1 === 'y') {
     console.log('Play ball!');
-    rl.question('Press "p" to throw a pitch.\n', (answer2) => {
-      if (answer2 === 'p') {
-        let pitchType = pitch();
-        console.log(`First pitch is a ${pitchType}.`);
-        rl.close();
-      }
-    })
+    const throwPitch = function() {
+      rl.question('Press "p" to throw a pitch.\n', (answer2) => {
+        if (answer2 === 'p') {
+          let pitchType = pitch();
+          let result = updateCount(pitchType);
+          if (Array.isArray(result)) {
+            console.log(`${pitchType}. ${result[0]} ball(s), ${result[1]} strike(s).`)
+          } else {
+            console.log(`${result}`);
+          }
+          throwPitch();
+          if (pitchType === 'Strike') {
+
+          }
+        }
+      })
+    }
+    throwPitch();
   } else {
     console.log('K, bye.');
     rl.close();
