@@ -1,3 +1,4 @@
+/*
 var inning = require('./baseballSimulator');
 const visitingTeam = require('./baseballSimulator');
 const homeTeam = require('./baseballSimulator');
@@ -14,9 +15,22 @@ var outs  = require('./baseballSimulator');
 //var onThird = require('./baseballSimulator');
 var updateTotalRunners = require('./updateTotalRunners');
 var advanceRunners = require('./advanceRunners');
-
+*/
 const pitch = function() {
+  let ballOrStrike = '';
+  
+  let randNum = Math.random();
+
+  
+  if (randNum > 0.5) {
+    ballOrStrike = 'Strike';
+  } else if (randNum < 0.5) {
+    ballOrStrike = 'Ball';
+  }
+
+  return ballOrStrike;
   //console.log(`${visitingTeamRuns}, ${homeTeamRuns}`);
+  /*
   console.log(inning);
   console.log(homeTeam);
   console.log(visitingTeam);
@@ -85,8 +99,9 @@ const pitch = function() {
     console.log(`Score: ${visitingTeam} ${visitingTeamRuns}, ${homeTeam} ${homeTeamRuns}`);
     //batter = 0;
     updateTotalRunners(0);
-    pitch();
+    //pitch();
   };
+  */
 }; 
 
 module.exports = pitch;
