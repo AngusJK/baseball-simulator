@@ -1,3 +1,4 @@
+/*
 const visitingTeam = require('./baseballSimulator');
 const homeTeam = require('./baseballSimulator');
 var onFirst = require('./baseballSimulator');
@@ -8,8 +9,9 @@ var visitingTeamRuns = require('./baseballSimulator');
 var homeTeamRuns = require('./baseballSimulator');
 var totalRunners = require('./baseballSimulator');
 var inning = require('./baseballSimulator');
+*/
 
-const advanceRunners = function(basesAchieved) {
+const advanceRunners = function(batter, basesAchieved) {
   if (basesAchieved === 1) {
     if (onFirst === 0) {
       onFirst = 1;
