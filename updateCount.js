@@ -1,4 +1,4 @@
-const pitch = require("./pitch");
+//const pitch = require("./pitch");
 
 let count = [0, 0];
 const updateCount = function(pitchType) {
