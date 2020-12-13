@@ -17,18 +17,12 @@ var updateTotalRunners = require('./updateTotalRunners');
 var advanceRunners = require('./advanceRunners');
 */
 const pitch = function() {
-  let ballOrStrike = '';
-  
+  let inTheZone = true;
   let randNum = Math.random();
-
-  
-  if (randNum > 0.5) {
-    ballOrStrike = 'Strike';
-  } else if (randNum < 0.5) {
-    ballOrStrike = 'Ball';
-  }
-
-  return ballOrStrike;
+  if (randNum < 0.5) {
+    inTheZone = false;
+  } 
+  return inTheZone;
   //console.log(`${visitingTeamRuns}, ${homeTeamRuns}`);
   /*
   console.log(inning);
