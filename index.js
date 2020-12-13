@@ -14,11 +14,14 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-let currentBatter = visitingTeam[0];
-
+let num = 0;
+let currentBatter = visitingTeam[num];
 const updateCurrentBatter = function() {
-  let index = visitingTeam[currentBatter] + 1;
-  currentBatter = visitingTeam[index];
+  num += 1;
+  if (num === 10) {
+    num = 1;
+  }
+  currentBatter = visitingTeam[num];
   return currentBatter;
 }
 
@@ -27,10 +30,18 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
     console.log('Play ball!');
     
     console.log(`Now batting: ${currentBatter}`);
+    let count = [0, 0];
     const throwPitch = function() {
       rl.question('Press "p" to throw a pitch.\n', (answer2) => {
+        let inTheZone = pitch();
+        let call = '';
         if (answer2 === 'p') {
+          if (inTheZone === false) {
+            call = "Ball";
+          } else {
+            /*
           let pitchType = pitch();
+          let pitchCall = '';
           let result = updateCount(pitchType);
           if (Array.isArray(result)) {
             console.log(`${pitchType}. ${result[0]} ball(s), ${result[1]} strike(s).`)
@@ -38,17 +49,20 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
             console.log(`${result}`);
             console.log(`Now batting, ${updateCurrentBatter()}`);
           }
-          throwPitch();
-          if (pitchType === "Strike") {
+          */
+          //throwPitch();
+          //if (pitchType === "Strike") {
             let randNum = Math.floor(Math.random() * 2);
             if (randNum === 0) {
               console.log("Batter swings!");
               let swingOutcome = swing();
-              if (swingOutcome === "Swing and miss" || (swingOutcome === "Foul" && result[1] < 2)) {
-                let swingResult = updateCount("Strike");
-                console.log(swingResult);
+              if (swingOutcome === "Swing and miss" || (swingOutcome === "Foul" && count[1] < 2)) {
+                pitchCall === "Strike";
+                //let swingResult = updateCount("Strike");
+                //console.log(`${swingResult[0]} ball(s), ${swingResult[1]} strikes.`);
               } else if (swingOutcome === "Foul" && result[1] === 2) {
-                console.log("Foul ball. Count stays the same. Press 'p' to throw another pitch.");
+                pitchCall === "No change";
+                //console.log("Foul ball. Count stays the same. Press 'p' to throw another pitch.");
               } else if (swingOutcome === "In play!") {
                 console.log(swingOutcome);
                 let inPlayOutcome = ballInPlay();
@@ -59,7 +73,10 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
                   console.log(`Now batting, ${updateCurrentBatter()}`);
                 } 
               }
-            } 
+            } else {
+              console.log("Called strike.");
+              call = "Strike";
+            }
           }
         }
       })
