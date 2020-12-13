@@ -35,8 +35,10 @@ class Player {
 }
 
 class Batter extends Player {
-  bats(handedness) {
+  setBats(handedness) {
+    if (handedness.toLowerCase() === "right" || handedness.toLowerCase() === "left" || handedness.toLowerCase() === "switch") {
     this.bats = handedness;
+    }
   }
   bio() {
     return `${this.bats}-handed batter. ${super.bio()}`;
@@ -44,8 +46,10 @@ class Batter extends Player {
 }
 
 class Pitcher extends Player {
-  throws(handedness) {
+  setThrows(handedness) {
+    if (handedness.toLowerCase() === "right" || handedness.toLowerCase() === "left") {
     this.throws = handedness;
+    }
   }
   bio() {
     return `${this.throws}-handed pitcher. ${super.bio()}`;
