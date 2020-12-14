@@ -16,6 +16,7 @@ const rl = readline.createInterface({
 
 let num = 0;
 let currentBatter = visitingTeam[num];
+/*
 const updateCurrentBatter = function() {
   num += 1;
   if (num === 10) {
@@ -24,7 +25,7 @@ const updateCurrentBatter = function() {
   currentBatter = visitingTeam[num];
   return currentBatter;
 }
-
+*/
 rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.\n', (answer1) => {
   if (answer1 === 'y') {
     console.log('Play ball!');
@@ -38,6 +39,17 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
         if (answer2 === 'p') {
           if (inTheZone === false) {
             call = "Ball";
+            console.log(call);
+            count[0] += 1;
+            if (count[0] === 4) {
+              count = [0, 0];
+              console.log("Ball four. Batter walks.");
+              num += 1;
+              console.log(`Now batting, ${currentBatter}`);
+              //updateCurrentBatter();
+            } else {
+            console.log(count);
+            }
           } else {
             /*
           let pitchType = pitch();
@@ -56,29 +68,38 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
             if (randNum === 0) {
               console.log("Batter swings!");
               let swingOutcome = swing();
+              console.log(swingOutcome);
               if (swingOutcome === "Swing and miss" || (swingOutcome === "Foul" && count[1] < 2)) {
-                pitchCall === "Strike";
+                call === "Strike";
+                count[1] += 1;
+                console.log(count);
                 //let swingResult = updateCount("Strike");
                 //console.log(`${swingResult[0]} ball(s), ${swingResult[1]} strikes.`);
               } else if (swingOutcome === "Foul" && result[1] === 2) {
-                pitchCall === "No change";
-                //console.log("Foul ball. Count stays the same. Press 'p' to throw another pitch.");
+                console.log("Foul ball. Count stays the same. Press 'p' to throw another pitch.");
+                console.log(count);
               } else if (swingOutcome === "In play!") {
-                console.log(swingOutcome);
                 let inPlayOutcome = ballInPlay();
                 console.log(inPlayOutcome);
-                console.log(`Now batting, ${updateCurrentBatter()}`);
+                //updateCurrentBatter();
+                console.log(`Now batting, ${currentBatter}`);
                 if (inPlayOutcome !== "out") {
-                  advanceRunners(currentBatter, inPlayOutcome);
-                  console.log(`Now batting, ${updateCurrentBatter()}`);
+                  //advanceRunners(currentBatter, inPlayOutcome);
+                  //updateCurrentBatter();
+                  num += 1;
+                  console.log(`Now batting, ${currentBatter}`);
+                  count = [0, 0];
                 } 
               }
             } else {
               console.log("Called strike.");
               call = "Strike";
+              count[1] += 1
+              console.log(count);
             }
           }
         }
+        throwPitch();
       })
     }
     throwPitch();
