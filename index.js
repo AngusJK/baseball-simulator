@@ -37,12 +37,17 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
             count[1] += 1;
             if (count[1] === 3) {
               console.log("Strike 3. Batter out.");
+              outs += 1;
+              console.log(`${outs} out.`);
               count = [0, 0];
+              if (outs === 3) {
+                console.log("Inning over.");
+                outs = 0;
+              }
             } else {
               console.log(count);
             }
           }
-
 
 
           throwPitch();
