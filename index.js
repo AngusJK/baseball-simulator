@@ -22,11 +22,21 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
     const throwPitch = function() {
       rl.question('Press "p" to throw a pitch.\n', (answer2) => {
         if (answer2 === 'p') {
-          let inZone = false;
+          let inZone = pitch();
           if (inZone === false) {
+            console.log("Ball");
             count[0] += 1;
             if (count[0] === 4) {
               console.log("Ball 4. Batter walks.");
+              count = [0, 0];
+            } else {
+              console.log(count);
+            }
+          } else {
+            console.log("Strike");
+            count[1] += 1;
+            if (count[1] === 3) {
+              console.log("Strike 3. Batter out.");
               count = [0, 0];
             } else {
               console.log(count);
