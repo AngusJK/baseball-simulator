@@ -26,8 +26,8 @@ const updateBatter = function() {
   return currentBatter;
 }
 
-const handleStrike = function() {
-  console.log("Strike");
+const handleStrike = function(strikeType) {
+  console.log(`${strikeType} strike.`);
   count[1] += 1;
   if (count[1] === 3) { // if there are 3 strikes, call the batter out
     console.log(`Strike 3. ${currentBatter} is out.`);
@@ -70,19 +70,30 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
               batterSwings = false;
             } 
             if (batterSwings === false) { // if the batter doesn't swing, call it a strike
-              handleStrike();
+              handleStrike("Called");
             } else { // if the batter swings, determine the result of the swing
               let swingResult = swing();
               if (swingResult === "Swing and miss") { // if the batter swings and misses, it's a strike
-                handleStrike();
+                handleStrike("Swinging");
               } else if (swingResult === "Foul") { 
                 if (count[1] === 2) { // a foul with 2 strikes doesn't change the count
                   console.log("Foul ball. Count remains the same.");
-                } else { // a fould with less that 2 strikes is called a strike
-                  handleStrike();
+                } else { // a foul with less than 2 strikes is called a strike
+                  handleStrike("Foul");
                 } 
               } else {
                 console.log("In play!");
+                let inPlayResult = ballInPlay();
+                console.log(inPlayResult);
+                if (inPlayResult === "out") {
+                  outs += 1;
+                  if (outs === 3) {
+                    console.log("Three outs. Inning over.");
+                    outs = 0;
+                  }
+                }
+                count = [0, 0];
+                atBatOver = true;
               }
             }
           }
@@ -91,6 +102,7 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
             console.log(`Now batting: ${currentBatter}.`);
           }
           throwPitch();
+          atBatOver = false;
         } else {
           console.log("You didn't press P. Bye.");
           rl.close();
