@@ -16,6 +16,7 @@ let count = [0, 0];
 let outs = 0;
 let batterIndex = 0;
 let currentBatter = visitingTeam[batterIndex];
+let atBatOver = false;
 const updateBatter = function() {
   batterIndex += 1;
   if (batterIndex === 9) {
@@ -25,6 +26,23 @@ const updateBatter = function() {
   return currentBatter;
 }
 
+const handleStrike = function() {
+  console.log("Strike");
+  count[1] += 1;
+  if (count[1] === 3) { // if there are 3 strikes, call the batter out
+    console.log(`Strike 3. ${currentBatter} is out.`);
+    atBatOver = true;
+    outs += 1;
+    console.log(`${outs} out.`);
+    count = [0, 0];
+    if (outs === 3) { // if there are 3 outs, the inning is over
+      console.log("Inning over.");
+      outs = 0;
+    }
+  } else {
+    console.log(count);
+  }
+} 
 
 rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.\n', (answer1) => {
   if (answer1 === 'y') {
@@ -33,34 +51,39 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
     console.log(`First batter up: ${currentBatter}.`);
     const throwPitch = function() {
       rl.question('Press "p" to throw a pitch.\n', (answer2) => {
-        let atBatOver = false;
-        if (answer2 === 'p') {
+        if (answer2 === 'p') { // if the user presses P, determine whether the pitch was in the zone
           let inZone = pitch();
-          if (inZone === false) {
+          if (inZone === false) { // if the pitch is not in the zone, call it a ball
             console.log("Ball");
             count[0] += 1;
-            if (count[0] === 4) {
+            if (count[0] === 4) { // if there are 4 ball, the batter walks
               console.log(`Ball 4. ${currentBatter} walks.`);
               atBatOver = true;
               count = [0, 0];
             } else {
               console.log(count);
             }
-          } else {
-            console.log("Strike");
-            count[1] += 1;
-            if (count[1] === 3) {
-              console.log(`Strike 3. ${currentBatter} is out.`);
-              atBatOver = true;
-              outs += 1;
-              console.log(`${outs} out.`);
-              count = [0, 0];
-              if (outs === 3) {
-                console.log("Inning over.");
-                outs = 0;
+          } else { // if the pitch is in the zone, determine whether the batter swings
+            let batterSwings = true;
+            let randNum = Math.floor(Math.random() * 2);
+            if (randNum < 0.5) {
+              batterSwings = false;
+            } 
+            if (batterSwings === false) { // if the batter doesn't swing, call it a strike
+              handleStrike();
+            } else { // if the batter swings, determine the result of the swing
+              let swingResult = swing();
+              if (swingResult === "Swing and miss") { // if the batter swings and misses, it's a strike
+                handleStrike();
+              } else if (swingResult === "Foul") { 
+                if (count[1] === 2) { // a foul with 2 strikes doesn't change the count
+                  console.log("Foul ball. Count remains the same.");
+                } else { // a fould with less that 2 strikes is called a strike
+                  handleStrike();
+                } 
+              } else {
+                console.log("In play!");
               }
-            } else {
-              console.log(count);
             }
           }
           if (atBatOver === true) {
