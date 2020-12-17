@@ -22,9 +22,10 @@ joeyVotto.logDetails();
 */ 
 
 class Player {
-  constructor(name, currentTeam) {
+  constructor(name, currentTeam, position) {
     this.name = name;
     this.teamsPlayedFor = [currentTeam];
+    this.position = position;
   }
   addTeams(team) {
     this.teamsPlayedFor.push(team);
@@ -55,7 +56,7 @@ class Pitcher extends Player {
     return `${this.throws}-handed pitcher. ${super.bio()}`;
   }
 }
-
+/*
 let joshDonaldson = new Batter("Josh Donaldson", "Braves");
 let giancarloStanton = new Batter("Giancarlo Stanton", "Yankees");
 let claytonKershaw = new Pitcher("Clayton Kershaw", "Dodgers");
@@ -70,3 +71,19 @@ claytonKershaw.throws("Left");
 
 console.log(joshDonaldson.bio());
 console.log(claytonKershaw.bio());
+*/
+
+const yandyDiaz = new Batter("Yandi Díaz", "Rays", "1B");
+const brandonLowe = new Batter("Brandon Lowe", "Rays", "2B");
+const randyArozarena = new Batter("Randy Arozarena", "Rays", "DH");
+const hunterRenfroe = new Batter("Hunter Renfroe", "Rays", "RF");
+const manuelMargot = new Batter("Manuel Margot", "Rays", "LF");
+const joeyWendle = new Batter("Joey Wendle", "Rays", "3B");
+const willyAdames = new Batter("Willy Adames", "Rays", "SS");
+const kevinKiermaier = new Batter("Kevin Kiermaier", "Rays", "CF");
+const mikeZunino = new Batter("Mike Zunino", "Rays", "C");
+
+const rays = [yandyDiaz, brandonLowe, randyArozarena, hunterRenfroe, manuelMargot, joeyWendle, willyAdames, kevinKiermaier, mikeZunino];
+const visitingTeam = rays;
+
+module.exports = visitingTeam;
