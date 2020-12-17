@@ -1,23 +1,26 @@
 const pitch = require('./pitch');
-const updateCount = require('./updateCount');
+//const updateCount = require('./updateCount');
 const swing = require('./swing');
 const ballInPlay = require('./ballInPlay');
-const homeTeam = require('./baseballSimulator');
-const visitingTeam = require('./createPlayer');
-const advanceRunners = require('./advanceRunners');
-const updateTotalRunners = require('./updateTotalRunners');
+//const dodgers = require('./createPlayer');
+const rays = require('./createPlayer');
+//const advanceRunners = require('./advanceRunners');
+//const updateTotalRunners = require('./updateTotalRunners');
 const readline = require('readline');
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
+const visitingTeam = rays;
+//const homeTeam = dodgers;
 let inning = [1, 0];
 let count = [0, 0];
 let outs = 0;
 let batterIndex = 0;
 let currentBatter = visitingTeam[batterIndex];
 let atBatOver = false;
+
 const updateBatter = function() {
   batterIndex += 1;
   if (batterIndex === 9) {
