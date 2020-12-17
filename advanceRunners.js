@@ -10,7 +10,7 @@ var homeTeamRuns = require('./baseballSimulator');
 var totalRunners = require('./baseballSimulator');
 var inning = require('./baseballSimulator');
 */
-
+/*
 const advanceRunners = function(batter, basesAchieved) {
   if (basesAchieved === 1) {
     if (onFirst === 0) {
@@ -113,5 +113,24 @@ const advanceRunners = function(batter, basesAchieved) {
     };
   };
 };
+
+module.exports = advanceRunners;
+*/
+
+let onFirst = 'empty';
+let onSecond = 'empty';
+let onThird = 'empty';
+
+const advanceRunners = function(playerName, hitType) {
+  if (hitType === 'single' || hitType === 'walk') {
+    onFirst = playerName;
+  } else if (hitType === 'double') {
+    onSecond = playerName;
+  } else if (hitType === 'triple') {
+    onThird = playerName;
+  } 
+  let baseState = [onFirst, onSecond, onThird];
+  return baseState;
+}
 
 module.exports = advanceRunners;
