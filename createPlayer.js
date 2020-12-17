@@ -73,6 +73,7 @@ console.log(joshDonaldson.bio());
 console.log(claytonKershaw.bio());
 */
 
+// lineups based on Game 1 of 2020 World Series
 const yandyDiaz = new Batter("Yandi Díaz", "Rays", "1B");
 const brandonLowe = new Batter("Brandon Lowe", "Rays", "2B");
 const randyArozarena = new Batter("Randy Arozarena", "Rays", "DH");
@@ -82,8 +83,21 @@ const joeyWendle = new Batter("Joey Wendle", "Rays", "3B");
 const willyAdames = new Batter("Willy Adames", "Rays", "SS");
 const kevinKiermaier = new Batter("Kevin Kiermaier", "Rays", "CF");
 const mikeZunino = new Batter("Mike Zunino", "Rays", "C");
+const mookieBetts = new Batter("Mookie Betts", "Dodgers", "RF");
+const coreySeager = new Batter("Corey Seager", "Dodgers", "SS");
+const justinTurner = new Batter("Justin Turner", "Dodgers", "3B");
+const maxMuncy = new Batter("Max Muncy", "Dodgers", "1B");
+const willSmith = new Batter("Will Smith", "Dodgers", "DH");
+const codyBellinger = new Batter("Cody Bellinger", "Dodgers", "CF");
+const chrisTaylor = new Batter("Chris Taylor", "Dodgers", "2B");
+const jocPederson = new Batter("Joc Pederson", "Dodgers", "LF");
+const austinBarnes = new Batter("Austin Barnes", "Dodgers", "C");
+
 
 const rays = [yandyDiaz, brandonLowe, randyArozarena, hunterRenfroe, manuelMargot, joeyWendle, willyAdames, kevinKiermaier, mikeZunino];
+const dodgers = [mookieBetts, coreySeager, justinTurner, maxMuncy, willSmith, codyBellinger, chrisTaylor, jocPederson, austinBarnes];
 const visitingTeam = rays;
+const homeTeam = dodgers;
 
 module.exports = visitingTeam;
+module.exports = homeTeam;
