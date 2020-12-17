@@ -83,6 +83,7 @@ const joeyWendle = new Batter("Joey Wendle", "Rays", "3B");
 const willyAdames = new Batter("Willy Adames", "Rays", "SS");
 const kevinKiermaier = new Batter("Kevin Kiermaier", "Rays", "CF");
 const mikeZunino = new Batter("Mike Zunino", "Rays", "C");
+
 const mookieBetts = new Batter("Mookie Betts", "Dodgers", "RF");
 const coreySeager = new Batter("Corey Seager", "Dodgers", "SS");
 const justinTurner = new Batter("Justin Turner", "Dodgers", "3B");
@@ -96,8 +97,5 @@ const austinBarnes = new Batter("Austin Barnes", "Dodgers", "C");
 
 const rays = [yandyDiaz, brandonLowe, randyArozarena, hunterRenfroe, manuelMargot, joeyWendle, willyAdames, kevinKiermaier, mikeZunino];
 const dodgers = [mookieBetts, coreySeager, justinTurner, maxMuncy, willSmith, codyBellinger, chrisTaylor, jocPederson, austinBarnes];
-const visitingTeam = rays;
-const homeTeam = dodgers;
 
-module.exports = visitingTeam;
-module.exports = homeTeam;
+module.exports = [rays, dodgers];
