@@ -3,7 +3,7 @@ const pitch = require('./pitch');
 const swing = require('./swing');
 const ballInPlay = require('./ballInPlay');
 const teams = require('./createPlayer');
-//const advanceRunners = require('./advanceRunners');
+const advanceRunners = require('./advanceRunners');
 //const updateTotalRunners = require('./updateTotalRunners');
 const readline = require('readline');
 const rl = readline.createInterface({
@@ -68,7 +68,6 @@ const handleStrike = function(strikeType) {
     if (outs === 3) { // if there are 3 outs, the inning is over
       setInning();
       displayInning();
-      //updateBatter();
       outs = 0;
     }
   } else {
@@ -80,6 +79,7 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
   if (answer1 === 'y') {
     console.log('Play ball!');
     ///////////////
+    console.log(`Top of inning ${inning[0]}.`)
     console.log(`First batter up: ${currentBatter.name}, ${currentBatter.position}.`);
     const throwPitch = function() {
       rl.question('Press "p" to throw a pitch.\n', (answer2) => {
@@ -90,6 +90,8 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
             count[0] += 1;
             if (count[0] === 4) { // if there are 4 ball, the batter walks
               console.log(`Ball 4. ${currentBatter.name} walks.`);
+              let baseState = advanceRunners(currentBatter.name, "walk");
+              console.log(baseState);
               atBatOver = true;
               count = [0, 0];
             } else {
@@ -97,7 +99,7 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
             }
           } else { // if the pitch is in the zone, determine whether the batter swings
             let batterSwings = true;
-            let randNum = Math.floor(Math.random() * 2);
+            let randNum = Math.random();
             if (randNum < 0.3) {
               batterSwings = false;
             } 
@@ -124,9 +126,11 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
                     console.log("Three outs. Inning over.");
                     setInning();
                     displayInning();
-                    //updateBatter();
                     outs = 0;
                   }
+                } else {
+                  let baseState = advanceRunners(currentBatter.name, inPlayResult);
+                  console.log(baseState);
                 }
                 count = [0, 0];
                 atBatOver = true;
