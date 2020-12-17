@@ -3,7 +3,7 @@ const updateCount = require('./updateCount');
 const swing = require('./swing');
 const ballInPlay = require('./ballInPlay');
 const homeTeam = require('./baseballSimulator');
-const visitingTeam = require('./baseballSimulator');
+const visitingTeam = require('./createPlayer');
 const advanceRunners = require('./advanceRunners');
 const updateTotalRunners = require('./updateTotalRunners');
 const readline = require('readline');
@@ -48,7 +48,7 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
   if (answer1 === 'y') {
     console.log('Play ball!');
     ///////////////
-    console.log(`First batter up: ${currentBatter}.`);
+    console.log(`First batter up: ${currentBatter.name}, ${currentBatter.position}.`);
     const throwPitch = function() {
       rl.question('Press "p" to throw a pitch.\n', (answer2) => {
         if (answer2 === 'p') { // if the user presses P, determine whether the pitch was in the zone
