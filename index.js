@@ -12,6 +12,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+let inning = [1, 0];
 let count = [0, 0];
 let outs = 0;
 let batterIndex = 0;
@@ -26,17 +27,35 @@ const updateBatter = function() {
   return currentBatter;
 }
 
+const setInning = function() {
+  if (inning[1] === 0) {
+    inning[1] = 1
+  } else {
+    inning[0] += 1;
+    inning[1] = 0;
+  }
+}
+
+const displayInning = function() {
+  let topOrBottom = "Top";
+  if (inning[1] === 1) {
+    topOrBottom = "Bottom";
+  }
+  console.log(`${topOrBottom} of inning ${inning[0]}.`);
+}
+
 const handleStrike = function(strikeType) {
   console.log(`${strikeType} strike.`);
   count[1] += 1;
   if (count[1] === 3) { // if there are 3 strikes, call the batter out
-    console.log(`Strike 3. ${currentBatter} is out.`);
+    console.log(`Strike 3. ${currentBatter.name} is out.`);
     atBatOver = true;
     outs += 1;
     console.log(`${outs} out.`);
     count = [0, 0];
     if (outs === 3) { // if there are 3 outs, the inning is over
-      console.log("Inning over.");
+      setInning();
+      displayInning();
       outs = 0;
     }
   } else {
@@ -57,7 +76,7 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
             console.log("Ball");
             count[0] += 1;
             if (count[0] === 4) { // if there are 4 ball, the batter walks
-              console.log(`Ball 4. ${currentBatter} walks.`);
+              console.log(`Ball 4. ${currentBatter.name} walks.`);
               atBatOver = true;
               count = [0, 0];
             } else {
@@ -87,8 +106,11 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
                 console.log(inPlayResult);
                 if (inPlayResult === "out") {
                   outs += 1;
+                  console.log(`${outs} out.`);
                   if (outs === 3) {
                     console.log("Three outs. Inning over.");
+                    setInning();
+                    displayInning();
                     outs = 0;
                   }
                 }
@@ -99,7 +121,7 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
           }
           if (atBatOver === true) {
             updateBatter();
-            console.log(`Now batting: ${currentBatter}.`);
+            console.log(`Now batting: ${currentBatter.name}, ${currentBatter.position}.`);
           }
           throwPitch();
           atBatOver = false;
