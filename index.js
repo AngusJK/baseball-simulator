@@ -100,7 +100,7 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
           } else { // if the pitch is in the zone, determine whether the batter swings
             let batterSwings = true;
             let randNum = Math.random();
-            if (randNum < 0.3) {
+            if (randNum < 0.1) {
               batterSwings = false;
             } 
             if (batterSwings === false) { // if the batter doesn't swing, call it a strike
@@ -118,9 +118,9 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
               } else {
                 console.log("In play!");
                 let inPlayResult = ballInPlay();
-                console.log(inPlayResult);
                 if (inPlayResult === "out") {
                   outs += 1;
+                  console.log(`${currentBatter.name} is out.`);
                   console.log(`${outs} out.`);
                   if (outs === 3) {
                     console.log("Three outs. Inning over.");
@@ -129,8 +129,12 @@ rl.question('Welcome to Major League Baseball Simulator 2020! Press "y" to play.
                     outs = 0;
                   }
                 } else {
+                  console.log(inPlayResult);
                   let baseState = advanceRunners(currentBatter.name, inPlayResult);
-                  console.log(baseState);
+                  console.log(baseState[0]);
+                  for (let x = 0; x < baseState[1].length; x++) {
+                    console.log(baseState[1][x]);
+                  }
                 }
                 count = [0, 0];
                 atBatOver = true;
