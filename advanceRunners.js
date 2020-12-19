@@ -123,11 +123,15 @@ let onThird = 'empty';
 
 let onBaseMatrix = ['empty', 'empty', 'empty', 'empty']; // each index of the array represents a base (1st, 2nd, 3rd, home)
 let runnersOn = []; // tracks the order of runners on base [betts, seager, turner]
-let runnersOnCorrectOrder = runnersOn.reverse(); // puts runners in correct order [turner, seager, betts]
+
 let scoreAnnouncements = [];
 let scoreAnnouncementsCorrectOrder = scoreAnnouncements.reverse();
 
 const assignBase = function(hitType) {
+  for (let y = 0; y < onBaseMatrix.length; y++) {
+    onBaseMatrix[y] = 'empty';
+  }
+  let runnersOnCorrectOrder = runnersOn.reverse(); // puts runners in correct order [turner, seager, betts]
   onBaseMatrix[hitType] = runnersOnCorrectOrder[0]; 
   hitType += 1;
   for (let x = 1; x < runnersOnCorrectOrder.length; x++) {
@@ -144,16 +148,17 @@ const assignBase = function(hitType) {
 const advanceRunners = function(playerName, hitType) {
   runnersOn.push(playerName);
   if (hitType === 'single' || hitType === 'walk') {
-    onFirst = playerName;
+    //onFirst = playerName;
     assignBase(0);
   } else if (hitType === 'double') {
-    onSecond = playerName;
+    //onSecond = playerName;
     assignBase(1);
   } else if (hitType === 'triple') {
-    onThird = playerName;
+    //onThird = playerName;
     assignBase(2);
   } else {
     runnersOn.push(playerName);
+    let runnersOnCorrectOrder = runnersOn.reverse();
     for (let x = 0; x < runnersOnCorrectOrder.length; x++) {
       let scoreAnnouncement = `${runnersOnCorrectOrder[x]} scores!`;
       scoreAnnouncements.push(scoreAnnouncement);
