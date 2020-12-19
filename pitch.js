@@ -19,7 +19,7 @@ var advanceRunners = require('./advanceRunners');
 const pitch = function() {
   let inTheZone = true;
   let randNum = Math.random();
-  if (randNum < 0.3) {
+  if (randNum < 0.1) {
     inTheZone = false;
   } 
   return inTheZone;
