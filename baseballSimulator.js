@@ -1,10 +1,6 @@
 //const pitch = require('./pitch');
 //const args = process.argv.slice(2);
-const dodgers = ["Betts", "Seager", "Turner", "Muncy", "Smith", "Bellinger", "Pollock", "Hernandez", "Taylor"];
-const rays = ["Meadows", "Lowe", "Arozarena", "Choi", "Margot", "Wendell", "Kiermaier", "Zunino", "Adames"];
 
-var homeTeam = dodgers;
-var visitingTeam = rays;
 /*
 var homeTeamRuns = 0;
 var visitingTeamRuns = 0;
@@ -45,6 +41,3 @@ module.exports = totalRunners;
 // node baseballSimulator.js
 
 */
-
-module.exports = homeTeam;
-module.exports = visitingTeam;
