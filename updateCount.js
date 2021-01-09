@@ -13,7 +13,6 @@ const updateCount = function(pitchType) {
   if (count[1] === 3) {
     count = [0, 0];
     return "Strike three. Batter out.";
-
   }
   return count;
 }
